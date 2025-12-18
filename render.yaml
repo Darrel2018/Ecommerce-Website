@@ -1,0 +1,22 @@
+databases:
+  - name: nordichomesdb
+    plan: free
+    databaseName: nordichomes_db
+    user: nordichomes_user
+
+services:
+  - type: web
+    plan: free
+    name: nordichomes
+    runtime: python
+    buildCommand: './build.sh'
+    startCommand: 'python -m gunicorn nordichomes.asgi:application -k uvicorn.workers.UvicornWorker' 
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: nordichomesdb
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
