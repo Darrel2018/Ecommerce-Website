@@ -36,6 +36,7 @@ def update_cart(request, product_id, action):
             'product': {
                 'id': product.id,
                 'name': product.name,
+                'slug': product.slug,
                 'image': product.image,
                 'get_thumbnail': product.get_thumbnail(),
                 'price': product.price,

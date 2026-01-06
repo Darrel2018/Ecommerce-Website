@@ -4,6 +4,7 @@ from django.core.files import File
 
 from io import BytesIO
 from PIL import Image
+from django.core.validators import MaxLengthValidator
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
@@ -76,3 +77,6 @@ class Review(models.Model):
     content = models.TextField()
     created_by = models.ForeignKey(User, related_name='reviews', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('-created_at',)

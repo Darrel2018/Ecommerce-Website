@@ -1,0 +1,33 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Edit Review - {{ product.name }}{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto py-6 px-6">
+    <h1 class="text-2xl mb-4">Edit Your Review for {{ product.name }}</h1>
+
+    <form method="post" class="bg-gray-100 p-6 rounded-xl">
+        {% csrf_token %}
+
+        <div class="mb-4">
+            <label class="block mb-1">Rating</label>
+            <select name="rating" class="bg-gray-200 px-2 py-1 rounded">
+                {% for i in "123456" %}
+                    <option value="{{ i }}" {% if review.rating|stringformat:"s" == i %}selected{% endif %}>
+                        {{ i }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label class="block mb-1">Comment</label>
+            <textarea name="content" class="w-full bg-gray-200 p-2 rounded" rows="5">{{ review.content }}</textarea>
+        </div>
+
+        <button type="submit" class="px-4 py-2 rounded-xl bg-purple-500 text-white hover:bg-purple-700">
+            Done
+        </button>
+    </form>
+</div>
+{% endblock %}
